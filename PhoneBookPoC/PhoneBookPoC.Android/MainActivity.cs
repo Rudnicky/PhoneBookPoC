@@ -1,11 +1,8 @@
-﻿using System;
-
-using Android.App;
+﻿using Android.App;
 using Android.Content.PM;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Android.OS;
+using Android.Runtime;
+using PhoneBookPoC.Droid.Implementations;
 
 namespace PhoneBookPoC.Droid
 {
@@ -31,6 +28,17 @@ namespace PhoneBookPoC.Droid
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+
+        public override Android.Support.V7.View.ActionMode StartSupportActionMode(Android.Support.V7.View.ActionMode.ICallback callback)
+        {
+            return ContextManager.LastActionMode = base.StartSupportActionMode(callback);
+        }
+
+        public override void OnSupportActionModeFinished(Android.Support.V7.View.ActionMode mode)
+        {
+            ContextManager.LastActionMode = null;
+            base.OnSupportActionModeFinished(mode);
         }
     }
 }

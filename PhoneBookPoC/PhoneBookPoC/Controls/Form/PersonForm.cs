@@ -254,6 +254,8 @@ namespace PhoneBookPoC.Controls.Form
         {
             _phone.Validate();
 
+            SwitchFocus(FocusedElement.Default);
+
             SendPackage();
         }
 

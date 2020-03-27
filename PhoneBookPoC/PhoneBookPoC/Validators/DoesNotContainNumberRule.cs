@@ -14,6 +14,7 @@ namespace PhoneBookPoC.Validators
             }
 
             var str = value as string;
+            str = str.Replace(" ", "");
 
             return str.All(char.IsLetter);
         }

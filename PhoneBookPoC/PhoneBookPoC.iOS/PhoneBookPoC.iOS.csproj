@@ -60,7 +60,6 @@
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Renderers\CustomNavigationPageRenderer.cs" />
     <Compile Include="Effects\EntryLineColorEffect.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
@@ -139,5 +138,8 @@
       <Project>{9AA1819B-4A6B-4F77-AE0F-2452A40E6491}</Project>
       <Name>PhoneBookPoC</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\avatar.png" />
   </ItemGroup>
 </Project>

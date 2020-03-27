@@ -3,6 +3,7 @@ using PhoneBookPoC.Controls.Form;
 using PhoneBookPoC.DataAcess;
 using PhoneBookPoC.DataAcess.DbContexts;
 using PhoneBookPoC.DataAcess.Repositories;
+using PhoneBookPoC.Services;
 using PhoneBookPoC.Services.Navigation;
 using System;
 using System.Globalization;
@@ -44,6 +45,7 @@ namespace PhoneBookPoC.ViewModels.Base
             builder.RegisterType<DbConfiguration>().As<IDbConfiguration>().SingleInstance();
             builder.RegisterType<NavigationService>().As<INavigationService>().SingleInstance();
             builder.RegisterType<PersonRepository>().As<IPersonRepository>().SingleInstance();
+            builder.RegisterType<MemoryCacheWrapper>().As<IMemoryCacheWrapper>().SingleInstance();
 
             if (_container != null)
             {

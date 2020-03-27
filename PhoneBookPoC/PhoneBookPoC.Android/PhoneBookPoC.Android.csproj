@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Effects\EntryLineColorEffect.cs" />
+    <Compile Include="Implementations\ContextManager.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Renderers\CustomNavigationPageRenderer.cs" />
     <Compile Include="Resources\Resource.designer.cs" />

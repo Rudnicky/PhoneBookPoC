@@ -1,6 +1,7 @@
 ﻿using PhoneBookPoC.DataAcess.Repositories;
 using PhoneBookPoC.Dialogs.YesNoDialog;
 using PhoneBookPoC.Entities;
+using PhoneBookPoC.Interfaces;
 using PhoneBookPoC.Services.Navigation;
 using PhoneBookPoC.ViewModels.Base;
 using Rg.Plugins.Popup.Services;
@@ -49,6 +50,11 @@ namespace PhoneBookPoC.ViewModels
             if (!IsBusy)
             {
                 IsBusy = true;
+
+                if (Device.RuntimePlatform == Device.Android)
+                {
+                    DependencyService.Get<IContextManager>().CloseLastContextMenu();
+                }
 
                 await NavigationService.NavigateToAsync<CreatePersonViewModel>();
 
