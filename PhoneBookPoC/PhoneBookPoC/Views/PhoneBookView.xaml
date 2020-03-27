@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="PhoneBookPoC.Views.PhoneBookView"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:PhoneBookPoC.ViewModels.Base"
+             x:Name="PhoneBookPage"
+             Title="Phone Book"
+             vm:ViewModelLocator.AutoWireViewModel="True"
+             BackgroundColor="White"
+             mc:Ignorable="d">
+    <ContentPage.Content>
+        <Grid Padding="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="70" />
+            </Grid.RowDefinitions>
+            <ListView HasUnevenRows="True"
+                      ItemsSource="{Binding People}"
+                      SelectionMode="None"
+                      SeparatorVisibility="None">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem Command="{Binding Source={x:Reference PhoneBookPage}, Path=BindingContext.DeletePersonMenuItemClickedCommand}"
+                                          CommandParameter="{Binding .}"
+                                          Text="Delete" />
+                                <MenuItem Command="{Binding Source={x:Reference PhoneBookPage}, Path=BindingContext.ModifyPersonMenuItemClickedCommand}"
+                                          CommandParameter="{Binding .}"
+                                          Text="Modify" />
+                            </ViewCell.ContextActions>
+                            <Frame Margin="2,2,2,10" Padding="1,20,1,20">
+                                <Grid ColumnSpacing="0" RowSpacing="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="2.5*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Image Grid.Row="0"
+                                           Grid.RowSpan="2"
+                                           Grid.Column="0"
+                                           Source="avatar.png"
+                                           Style="{DynamicResource AvatarImageStyle}" />
+                                    <Label Grid.Row="0"
+                                           Grid.Column="1"
+                                           Style="{DynamicResource PrimaryLabelStyle}"
+                                           Text="{Binding FullName}" />
+                                    <Label Grid.Row="1"
+                                           Grid.Column="1"
+                                           Style="{DynamicResource SecondaryLabelStyle}"
+                                           Text="{Binding PhoneNumber}" />
+                                </Grid>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button Grid.Row="1"
+                    Margin="0,20,0,0"
+                    Command="{Binding AddButtonClickedCommand}"
+                    Style="{DynamicResource ButtonStyle}"
+                    Text="Add Person" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

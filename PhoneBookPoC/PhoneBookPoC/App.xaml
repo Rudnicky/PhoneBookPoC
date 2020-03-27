@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application x:Class="PhoneBookPoC.App"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:behaviors="clr-namespace:PhoneBookPoC.Behaviors"
+             mc:Ignorable="d">
+    <Application.Resources>
+
+        <!--  COLORS  -->
+        <Color x:Key="WhiteColor">#ffffff</Color>
+        <Color x:Key="ButtonBackgroundColor">#2196F3</Color>
+        <Color x:Key="ButtonBackgroundColorDisabled">#2196F3</Color> 
+        <Color x:Key="ButtonBackgroundColorDanger">#d9534f</Color>
+        <Color x:Key="BlackColor">#000000</Color>
+        <Color x:Key="BackgroundColor">#ffffff</Color>
+        <Color x:Key="GrayColor">#d4d4d4</Color>
+        <Color x:Key="ErrorColor">#ff5252</Color>
+
+        <!-- FONT SIZES -->
+        <OnPlatform x:Key="LittleSize" x:TypeArguments="x:Double">
+            <On Platform="iOS" Value="11" />
+            <On Platform="Android" Value="12" />
+        </OnPlatform>
+
+        <OnPlatform x:Key="LargeSize" x:TypeArguments="x:Double">
+            <On Platform="iOS" Value="16" />
+            <On Platform="Android" Value="18" />
+        </OnPlatform>
+
+        <OnPlatform x:Key="MediumSize" x:TypeArguments="x:Double">
+            <On Platform="iOS" Value="14" />
+            <On Platform="Android" Value="16" />
+        </OnPlatform>
+
+        <!--  FONTS  -->
+        <OnPlatform x:Key="MontserratRegular" x:TypeArguments="x:String">
+            <On Platform="iOS" Value="Montserrat-Regular" />
+            <On Platform="Android" Value="Montserrat-Regular.ttf#Montserrat" />
+        </OnPlatform>
+
+        <OnPlatform x:Key="MontserratBold" x:TypeArguments="x:String">
+            <On Platform="iOS" Value="Montserrat-Bold" />
+            <On Platform="Android" Value="Montserrat-Bold.ttf#Montserrat" />
+        </OnPlatform>
+
+        <!-- ENTRY STYLES -->
+        <Style x:Key="EntryStyle" TargetType="{x:Type Entry}">
+            <Setter Property="TextColor" Value="{StaticResource BlackColor}" />
+            <Setter Property="FontFamily" Value="{StaticResource MontserratRegular}" />
+            <Setter Property="PlaceholderColor" Value="{StaticResource BlackColor}" />
+            <Setter Property="FontSize" Value="{StaticResource LargeSize}" />
+            <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+            <Setter Property="VerticalOptions" Value="Center" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="Opacity" Value="0.6" />
+            <Setter Property="behaviors:LineColorBehavior.ApplyLineColor" Value="True" />
+            <Setter Property="behaviors:LineColorBehavior.LineColor" Value="{StaticResource BlackColor}" />
+            <Style.Triggers>
+                <Trigger TargetType="Entry" Property="IsFocused" Value="True">
+                    <Setter Property="Opacity" Value="1" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- IMAGE STYLES -->
+        <Style x:Key="AvatarImageStyle" TargetType="{x:Type Image}">
+            <Setter Property="WidthRequest" Value="50" />
+            <Setter Property="HeightRequest" Value="50" />
+            <Setter Property="HorizontalOptions" Value="Center" />
+            <Setter Property="VerticalOptions" Value="Center" />
+        </Style>
+
+        <!-- LABEL STYLES -->
+        <Style x:Key="PrimaryLabelStyle" TargetType="{x:Type Label}">
+            <Setter Property="FontFamily" Value="{StaticResource MontserratRegular}" />
+            <Setter Property="TextColor" Value="{StaticResource BlackColor}" />
+            <Setter Property="FontSize" Value="{StaticResource LargeSize}" />
+            <Setter Property="HorizontalOptions" Value="StartAndExpand" />
+            <Setter Property="VerticalOptions" Value="Center" />
+        </Style>
+
+        <Style x:Key="SecondaryLabelStyle" TargetType="{x:Type Label}">
+            <Setter Property="FontFamily" Value="{StaticResource MontserratRegular}" />
+            <Setter Property="TextColor" Value="{StaticResource GrayColor}" />
+            <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
+            <Setter Property="HorizontalOptions" Value="StartAndExpand" />
+            <Setter Property="VerticalOptions" Value="Center" />
+        </Style>
+
+        <Style x:Key="BoldLabelStyle" TargetType="{x:Type Label}">
+            <Setter Property="FontFamily" Value="{StaticResource MontserratBold}" />
+            <Setter Property="TextColor" Value="{StaticResource BlackColor}" />
+            <Setter Property="FontSize" Value="{StaticResource LargeSize}" />
+            <Setter Property="HorizontalOptions" Value="StartAndExpand" />
+            <Setter Property="VerticalOptions" Value="Center" />
+
+        </Style>
+        <Style x:Key="ValidationErrorLabelStyle" TargetType="{x:Type Label}">
+            <Setter Property="TextColor" Value="{StaticResource ErrorColor}" />
+            <Setter Property="FontSize" Value="{StaticResource LittleSize}" />
+            <Setter Property="FontFamily" Value="{StaticResource MontserratRegular}" />
+            <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+        </Style>
+
+        <!-- BUTTON STYLES -->
+        <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="FontFamily" Value="{StaticResource MontserratRegular}" />
+            <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
+            <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
+            <Setter Property="BackgroundColor" Value="{StaticResource ButtonBackgroundColor}" />
+            <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
+            <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+            <Setter Property="VerticalOptions" Value="FillAndExpand" />
+            <Style.Triggers>
+                <Trigger TargetType="Button" Property="IsEnabled" Value="False">
+                    <Setter Property="BackgroundColor" Value="{StaticResource ButtonBackgroundColorDisabled}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="DangerButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource ButtonStyle}">
+            <Setter Property="BackgroundColor" Value="{StaticResource ButtonBackgroundColorDanger}" />
+        </Style>
+
+    </Application.Resources>
+</Application>

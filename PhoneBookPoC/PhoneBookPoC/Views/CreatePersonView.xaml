@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="PhoneBookPoC.Views.CreatePersonView"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:form="clr-namespace:PhoneBookPoC.Controls.Form"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:PhoneBookPoC.ViewModels.Base"
+             Title="Phone Book - Add"
+             vm:ViewModelLocator.AutoWireViewModel="True"
+             BackgroundColor="White"
+             mc:Ignorable="d">
+    <ContentPage.Content>
+        <Grid Padding="20" RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <form:PersonForm x:Name="PersonForm" IsAddFormType="True" />
+            <Button Grid.Row="1"
+                    Margin="0,20,0,0"
+                    Command="{Binding AddPersonButtonClickedCommand}"
+                    IsEnabled="{Binding IsAddButtonEnabled}"
+                    Style="{DynamicResource ButtonStyle}"
+                    Text="Add Person" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

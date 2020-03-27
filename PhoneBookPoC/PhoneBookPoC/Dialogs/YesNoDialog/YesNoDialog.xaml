@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage x:Class="PhoneBookPoC.Dialogs.YesNoDialog.YesNoDialog"
+                 xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+                 xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+                 mc:Ignorable="d">
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation DurationIn="400"
+                                   DurationOut="300"
+                                   EasingIn="SinOut"
+                                   EasingOut="SinIn"
+                                   HasBackgroundAnimation="True"
+                                   PositionIn="Center"
+                                   PositionOut="Center"
+                                   ScaleIn="1.2"
+                                   ScaleOut="0.8" />
+    </pages:PopupPage.Animation>
+    <StackLayout Margin="20"
+                 BackgroundColor="#FFFFFF"
+                 HorizontalOptions="Center"
+                 Spacing="0"
+                 VerticalOptions="Center">
+        <Frame BackgroundColor="#F8F8F8" CornerRadius="5">
+            <Label Margin="4,0,0,0"
+                   Style="{DynamicResource BoldLabelStyle}"
+                   Text="{Binding Title}" />
+        </Frame>
+        <BoxView BackgroundColor="#4E5155" HeightRequest="1" />
+        <Label Margin="10,20,10,20"
+               Font="Wrap"
+               Style="{DynamicResource PrimaryLabelStyle}"
+               Text="{Binding Body}" />
+        <StackLayout Orientation="Horizontal">
+            <Button Margin="10,20,5,10"
+                    Clicked="UpdateButton_Clicked"
+                    FontSize="13"
+                    Style="{Binding YesButtonStyle}"
+                    Text="{Binding YesButtonText}" />
+            <Button Margin="0,20,10,10"
+                    Clicked="CloseButton_Clicked"
+                    FontSize="13"
+                    Style="{DynamicResource ButtonStyle}"
+                    Text="{Binding NoButtonText}" />
+        </StackLayout>
+    </StackLayout>
+</pages:PopupPage>

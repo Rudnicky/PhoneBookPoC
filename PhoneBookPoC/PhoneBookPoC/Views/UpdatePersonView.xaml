@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="PhoneBookPoC.Views.UpdatePersonView"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:form="clr-namespace:PhoneBookPoC.Controls.Form"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:PhoneBookPoC.ViewModels.Base"
+             Title="Phone Book - Update"
+             x:Name="Root"
+             vm:ViewModelLocator.AutoWireViewModel="True"
+             mc:Ignorable="d">
+    <ContentPage.Content>
+        <Grid Padding="20" RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <!--<form:PersonFormView x:Name="FormView" Person="{Binding Person}" />-->
+            <form:PersonForm x:Name="PersonForm" Person="{Binding Person}" />
+            <Button Grid.Row="1"
+                    Margin="0,20,0,0"
+                    Command="{Binding UpdatePersonButtonClickedCommand}"
+                    IsEnabled="{Binding IsUpdateButtonEnabled}"
+                    Style="{DynamicResource ButtonStyle}"
+                    Text="Update Person" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
