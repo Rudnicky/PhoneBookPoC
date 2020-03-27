@@ -2,9 +2,11 @@
 using PhoneBookPoC.Dialogs.YesNoDialog;
 using PhoneBookPoC.Entities;
 using PhoneBookPoC.Interfaces;
+using PhoneBookPoC.Services;
 using PhoneBookPoC.Services.Navigation;
 using PhoneBookPoC.ViewModels.Base;
 using Rg.Plugins.Popup.Services;
+using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -31,73 +33,116 @@ namespace PhoneBookPoC.ViewModels
         public ICommand DeletePersonMenuItemClickedCommand => new Command(async (object obj) => await DeletePersonMenuItemClicked(obj));
         public ICommand ModifyPersonMenuItemClickedCommand => new Command(async (object obj) => await ModifyPersonMenuItemClicked(obj));
 
-        public PhoneBookViewModel(INavigationService navigationService, IPersonRepository personRepository) 
-            : base(navigationService, personRepository)
+        public PhoneBookViewModel(INavigationService navigationService,
+            IPersonRepository personRepository,
+            ILogService logger)
+            : base(navigationService, personRepository, logger)
         {
         }
 
         public async Task OnAppearing()
         {
-            var people = await PersonRepository.GetPeople();
-            if (people != null)
+            try
             {
-                People = new ObservableCollection<Person>(people);
+                var people = await PersonRepository.GetPeople();
+                if (people != null)
+                {
+                    People = new ObservableCollection<Person>(people);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError(ex.Message);
             }
         }
 
         private async Task AddButtonClicked()
         {
-            if (!IsBusy)
+            try
             {
-                IsBusy = true;
-
-                if (Device.RuntimePlatform == Device.Android)
+                if (!IsBusy)
                 {
-                    DependencyService.Get<IContextManager>().CloseLastContextMenu();
+                    IsBusy = true;
+
+                    if (Device.RuntimePlatform == Device.Android)
+                    {
+                        DependencyService.Get<IContextManager>().CloseLastContextMenu();
+                    }
+
+                    await NavigationService.NavigateToAsync<CreatePersonViewModel>();
                 }
-
-                await NavigationService.NavigateToAsync<CreatePersonViewModel>();
-
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError(ex.Message);
+            }
+            finally
+            {
                 IsBusy = false;
             }
         }
 
         private async Task DeletePersonMenuItemClicked(object obj)
         {
-            if (!IsBusy)
+            try
             {
-                IsBusy = true;
+                if (!IsBusy)
+                {
+                    IsBusy = true;
 
-                await ShowDialog(obj);
-
+                    await ShowDialog(obj);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError(ex.Message);
+            }
+            finally
+            {
                 IsBusy = false;
             }
         }
 
         private async Task ModifyPersonMenuItemClicked(object obj)
         {
-            if (!IsBusy)
+            try
             {
-                IsBusy = true;
-
-                if (obj is Person person)
+                if (!IsBusy)
                 {
-                    await NavigationService.NavigateToAsync<UpdatePersonViewModel>(person);
-                }
+                    IsBusy = true;
 
+                    if (obj is Person person)
+                    {
+                        await NavigationService.NavigateToAsync<UpdatePersonViewModel>(person);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError(ex.Message);
+            }
+            finally
+            {
                 IsBusy = false;
             }
         }
 
         private async void DeleteDialogAnswered(object sender, YesNoDialogEventArgs e)
         {
-            if (e.Confirmed && e.Obj is Person person)
+            try
             {
-                await PersonRepository.DeletePerson(person.Id);
+                if (e.Confirmed && e.Obj is Person person)
+                {
+                    await PersonRepository.DeletePerson(person.Id);
 
-                People.Remove(person);
+                    People.Remove(person);
 
-                _dialog.Answered -= DeleteDialogAnswered;
+                    _dialog.Answered -= DeleteDialogAnswered;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError(ex.Message);
             }
         }
 

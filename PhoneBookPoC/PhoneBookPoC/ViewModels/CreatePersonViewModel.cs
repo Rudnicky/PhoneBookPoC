@@ -1,8 +1,10 @@
 ﻿using PhoneBookPoC.Controls.Form;
 using PhoneBookPoC.DataAcess.Repositories;
 using PhoneBookPoC.Entities;
+using PhoneBookPoC.Services;
 using PhoneBookPoC.Services.Navigation;
 using PhoneBookPoC.ViewModels.Base;
+using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -26,25 +28,36 @@ namespace PhoneBookPoC.ViewModels
 
         public ICommand AddPersonButtonClickedCommand => new Command(async () => await AddPersonButtonClicked());
 
-        public CreatePersonViewModel(INavigationService navigationService, IPersonRepository personRepository) 
-            : base(navigationService, personRepository)
+        public CreatePersonViewModel(INavigationService navigationService, 
+            IPersonRepository personRepository,
+            ILogService logger) 
+            : base(navigationService, personRepository, logger)
         {
             Subscribe();
         }
 
         private async Task AddPersonButtonClicked()
         {
-            if (!IsBusy)
+            try
             {
-                IsBusy = true;
-
-                if (_entityToAdd != null)
+                if (!IsBusy)
                 {
-                    await PersonRepository.AddPerson(_entityToAdd);
+                    IsBusy = true;
+
+                    if (_entityToAdd != null)
+                    {
+                        await PersonRepository.AddPerson(_entityToAdd);
+                    }
+
+                    await NavigationService.PopAsync();
                 }
-
-                await NavigationService.PopAsync();
-
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError(ex.Message);
+            }
+            finally
+            {
                 IsBusy = false;
             }
         }

@@ -46,6 +46,7 @@ namespace PhoneBookPoC.ViewModels.Base
             builder.RegisterType<NavigationService>().As<INavigationService>().SingleInstance();
             builder.RegisterType<PersonRepository>().As<IPersonRepository>().SingleInstance();
             builder.RegisterType<MemoryCacheWrapper>().As<IMemoryCacheWrapper>().SingleInstance();
+            builder.RegisterType<LogService>().As<ILogService>().SingleInstance();
 
             if (_container != null)
             {

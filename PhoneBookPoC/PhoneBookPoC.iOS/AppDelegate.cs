@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Foundation;
+using PhoneBookPoC.Services;
 using UIKit;
 
 namespace PhoneBookPoC.iOS
@@ -29,7 +30,17 @@ namespace PhoneBookPoC.iOS
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
 
+            Bootstrapping();
+
             return base.FinishedLaunching(app, options);
+        }
+        private void Bootstrapping()
+        {
+            var assembly = this.GetType().Assembly;
+            var assemblyName = assembly.GetName().Name;
+
+
+            new LogService().Initialize(assembly, assemblyName);
         }
     }
 }

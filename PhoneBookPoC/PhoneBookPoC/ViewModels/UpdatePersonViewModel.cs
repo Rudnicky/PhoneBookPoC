@@ -1,8 +1,10 @@
 ﻿using PhoneBookPoC.Controls.Form;
 using PhoneBookPoC.DataAcess.Repositories;
 using PhoneBookPoC.Entities;
+using PhoneBookPoC.Services;
 using PhoneBookPoC.Services.Navigation;
 using PhoneBookPoC.ViewModels.Base;
+using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -36,10 +38,15 @@ namespace PhoneBookPoC.ViewModels
 
         public ICommand UpdatePersonButtonClickedCommand => new Command(async () => await UpdatePersonButtonClicked());
 
-        public UpdatePersonViewModel(INavigationService navigationService, IPersonRepository personRepository) 
-            : base(navigationService, personRepository)
+        public UpdatePersonViewModel(INavigationService navigationService,
+            IPersonRepository personRepository,
+            ILogService logger)
+            : base(navigationService, personRepository, logger)
         {
             Subscribe();
+
+            // test purpose
+            Logger.LogInfo("UpdatePersonViewModel - Started!");
         }
 
         public override async Task InitializeAsync(object obj)
@@ -49,17 +56,26 @@ namespace PhoneBookPoC.ViewModels
 
         private async Task UpdatePersonButtonClicked()
         {
-            if (!IsBusy)
+            try
             {
-                IsBusy = true;
-
-                if (_person != null)
+                if (!IsBusy)
                 {
-                    await PersonRepository.UpdatePerson(_person);
+                    IsBusy = true;
+
+                    if (_person != null)
+                    {
+                        await PersonRepository.UpdatePerson(_person);
+                    }
+
+                    await NavigationService.PopAsync();
                 }
-
-                await NavigationService.PopAsync();
-
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError(ex.Message);
+            }
+            finally
+            {
                 IsBusy = false;
             }
         }

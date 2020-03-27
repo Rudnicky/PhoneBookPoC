@@ -3,6 +3,8 @@ using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
 using PhoneBookPoC.Droid.Implementations;
+using PhoneBookPoC.Services;
+using PhoneBookPoC.ViewModels.Base;
 
 namespace PhoneBookPoC.Droid
 {
@@ -17,6 +19,8 @@ namespace PhoneBookPoC.Droid
             base.OnCreate(savedInstanceState);
 
             Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
+
+            Bootstraping();
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
@@ -39,6 +43,16 @@ namespace PhoneBookPoC.Droid
         {
             ContextManager.LastActionMode = null;
             base.OnSupportActionModeFinished(mode);
+        }
+
+        private void Bootstraping()
+        {
+            var assembly = this.GetType().Assembly;
+            var assemblyName = assembly.GetName().Name;
+
+            var logService = ViewModelLocator.Resolve<ILogService>();
+            logService.Initialize(assembly, assemblyName);
+
         }
     }
 }
