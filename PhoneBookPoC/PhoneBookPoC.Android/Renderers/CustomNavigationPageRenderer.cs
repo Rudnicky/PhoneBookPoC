@@ -28,12 +28,12 @@ namespace PhoneBookPoC.Droid.Renderers
 
         protected override void Dispose(bool disposing)
         {
-            base.Dispose(disposing);
-
             if (disposing)
             {
                 _toolbar.ChildViewAdded -= Toolbar_ChildViewAdded;
             }
+
+            base.Dispose(disposing);
         }
 
         private void Toolbar_ChildViewAdded(object sender, ChildViewAddedEventArgs e)

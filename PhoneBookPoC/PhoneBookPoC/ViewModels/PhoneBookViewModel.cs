@@ -97,19 +97,16 @@ namespace PhoneBookPoC.ViewModels
 
         private async Task ShowDialog(object obj)
         {
-            if (_dialog == null)
+            _dialog = new YesNoDialog(obj)
             {
-                _dialog = new YesNoDialog(obj)
-                {
-                    Title = "Warning",
-                    Body = "This operation will permamently delete this record.",
-                    YesButtonText = "Delete",
-                    NoButtonText = "Close",
-                    YesButtonStyle = (Style)Application.Current.Resources["DangerButtonStyle"]
-                };
+                Title = "Warning",
+                Body = "This operation will permamently delete this record.",
+                YesButtonText = "Delete",
+                NoButtonText = "Close",
+                YesButtonStyle = (Style)Application.Current.Resources["DangerButtonStyle"]
+            };
 
-                _dialog.Answered += DeleteDialogAnswered;
-            }
+            _dialog.Answered += DeleteDialogAnswered;
 
             await PopupNavigation.Instance.PushAsync(_dialog);
         }

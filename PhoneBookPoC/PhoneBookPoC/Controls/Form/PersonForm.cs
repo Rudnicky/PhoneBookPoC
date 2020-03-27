@@ -228,6 +228,8 @@ namespace PhoneBookPoC.Controls.Form
         private void Control_Unfocused(object sender, FocusEventArgs e)
         {
             SwitchFocus(FocusedElement.Default);
+
+            SendPackage();
         }
 
         private void FirstNameEntry_Completed(object sender, EventArgs e)
