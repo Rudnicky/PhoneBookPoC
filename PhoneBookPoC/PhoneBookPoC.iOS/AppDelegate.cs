@@ -4,6 +4,7 @@ using System.Linq;
 
 using Foundation;
 using PhoneBookPoC.Services;
+using PhoneBookPoC.ViewModels.Base;
 using UIKit;
 
 namespace PhoneBookPoC.iOS
@@ -39,8 +40,8 @@ namespace PhoneBookPoC.iOS
             var assembly = this.GetType().Assembly;
             var assemblyName = assembly.GetName().Name;
 
-
-            new LogService().Initialize(assembly, assemblyName);
+            var logService = ViewModelLocator.Resolve<ILogService>();
+            logService.Initialize(assembly, assemblyName);
         }
     }
 }
